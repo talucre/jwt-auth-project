@@ -13,15 +13,9 @@ class UserController {
         return res.json(userData)
     }
 
-    async login(req, res, next) {
-        try {
-        } catch (e) {}
-    }
+    async login(req, res, next) {}
 
-    async logout(req, res, next) {
-        try {
-        } catch (e) {}
-    }
+    async logout(req, res, next) {}
 
     async activate(req, res, next) {
         const activationLink = req.params.link
@@ -29,15 +23,10 @@ class UserController {
         return res.redirect(process.env.CLIENT_URL)
     }
 
-    async refresh(req, res, next) {
-        try {
-        } catch (e) {}
-    }
+    async refresh(req, res, next) {}
 
     async getUsers(req, res, next) {
-        try {
-            res.json(['123', '456'])
-        } catch (e) {}
+        res.json(['123', '456'])
     }
 }
 

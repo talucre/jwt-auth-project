@@ -4,13 +4,14 @@ const uuid = require('uuid')
 const mailService = require('./mail-service')
 const tokenService = require('./token-service')
 const UserDto = require('../dtos/user-dto')
+const ApiError = require('../exceptions/api-error')
 
 class UserService {
     async registration(email, password) {
         const candidate = await userRepo.findByEmail(email)
         console.log(candidate)
         if (candidate) {
-            throw new Error(
+            throw ApiError.BadRequest(
                 `Пользователь с почтовым адресом ${email} уже существует`,
             )
         }
@@ -33,7 +34,7 @@ class UserService {
     async activate(activationLink) {
         const user = await userRepo.findByActivationLink(activationLink)
         if (!user) {
-            throw new Error('Некорректная ссылка активации')
+            throw ApiError.BadRequest('Некорректная ссылка активации')
         }
         await userRepo.activate(user.id, activationLink)
     }

@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 
 const db = require('./db.js')
 const router = require('./router/index.js')
-const errorHandlingMiddleware = require('./middlewares/errorHandlingMiddleware.js')
+const errorMiddleware = require('./middlewares/error-middleware.js')
 
 const PORT = process.env.PORT || 5000
 const app = express()
@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
 app.use('/api', router)
-app.use(errorHandlingMiddleware)
+app.use(errorMiddleware)
 
 const start = async () => {
     try {
