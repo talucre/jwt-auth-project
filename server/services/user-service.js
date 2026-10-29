@@ -29,6 +29,14 @@ class UserService {
 
         return { ...tokens, user: userDto }
     }
+
+    async activate(activationLink) {
+        const user = await userRepo.findByActivationLink(activationLink)
+        if (!user) {
+            throw new Error('Некорректная ссылка активации')
+        }
+        await userRepo.activate(user.id, activationLink)
+    }
 }
 
 module.exports = new UserService()

@@ -10,6 +10,24 @@ class UserRepository {
         return user || null
     }
 
+    async findByActivationLink(activationLink) {
+        const user = await db('user')
+            .select('*')
+            .where({ activationLink })
+            .first()
+
+        return user || null
+    }
+
+    async activate(userId, activationLink) {
+        const [user] = await db('user')
+            .where({ id: userId, activationLink })
+            .update({ isActivated: true, activationLink: null })
+            .returning('*')
+
+        return user || null
+    }
+
     async create(email, password, activationLink) {
         const [user] = await db('user')
             .insert({ email, password, activationLink })
